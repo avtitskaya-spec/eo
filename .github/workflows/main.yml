@@ -25,9 +25,11 @@ jobs:
       - name: Сгенерировать allure 3 отчет в один файл
         run: npx allure awesome ./allure-results --single-file
         continue-on-error: true
+        if: always()
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v6.0.0
         continue-on-error: true
+        if: always()
         with:
           name: allure single file
           patch: |
