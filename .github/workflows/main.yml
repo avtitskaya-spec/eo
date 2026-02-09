@@ -32,7 +32,7 @@ jobs:
         if: always()
         with:
           name: allure single file
-          patch: |
+          path: |
             allure-report/index.html
             allure-results
             playwright-report
