@@ -25,12 +25,19 @@ tests/
 </pre>
 
  ## Установка и запуск
+ ```bash
 npm install
+```
+```bash
 npx playwright install --with-deps
+```
+
 ### Запуск всех тестов
 npm test
 
  ## Allure отчёт
+```bash
 allure generate allure-results
+```
 allure open allure-report
 
