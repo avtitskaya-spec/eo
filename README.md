@@ -33,11 +33,14 @@ npx playwright install --with-deps
 ```
 
 ### Запуск всех тестов
+ ```bash
 npm test
+```
 
  ## Allure отчёт
 ```bash
 allure generate allure-results
 ```
+```bash
 allure open allure-report
-
+```
