@@ -1,5 +1,4 @@
 import { MainPage, ProductPage, CheckoutPage, MiniCartPage} from './index';
-// import {Fixture} from '../helpers/fixtures';
 
 export class App {
    
