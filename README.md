@@ -1,4 +1,6 @@
  ## Структура проекта
+<pre>
+```bash
 src/
  ├── helpers/
  │    └── builders/
@@ -21,6 +23,8 @@ tests/
  │    └── check-pages.spec.js
  ├── checkout.spec.js
  └── mainPage.spec.js
+```
+</pre>
 
  ## Установка и запуск
 npm install
