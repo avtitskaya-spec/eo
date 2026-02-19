@@ -26,7 +26,7 @@ test.describe('Страница товара', () => {
             await app.product.clickIconFavorite();
             await expect(app.product.headerIconFavoritesRemoveByAria).toBeVisible();
         });
-        test('Оформление заказа', async({app, page}) => {
+        test('Оформление заказа', async({app}) => {
         const checkoutData = new CheckoutUserBuilder().build();;
             await app.product.clickOneClickButton();
             await app.checkoutP.nameInput.waitFor({ state: 'visible' });
