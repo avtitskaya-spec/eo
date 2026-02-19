@@ -29,6 +29,7 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('')`. */
     testIdAttribute: 'data-test-id',
     baseURL: 'https://www.express-office.ru/',
+    headless: false,
     // headless: false,
 
 
