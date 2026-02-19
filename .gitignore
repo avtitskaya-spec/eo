@@ -7,5 +7,10 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 /allure-results/
+/allure-report/
 /package-lock.json/
+*.jar
+.idea/
+.vscode/
+.DS_Store
 

@@ -5,7 +5,6 @@ export class CheckoutPage {
     constructor(page) {
         this.page = page;
         this.title = page.getByTestId('cart-title'),
-
         this.nameInput = page.locator('[name="name"]');
         this.phoneInput = page.locator('.cart-customer-form__inputs input[name="phone"]');
         this.emailInput = page.locator('[name="email"]');
@@ -14,9 +13,6 @@ export class CheckoutPage {
     }
 
     // --- бизнес-методы ---
-    async clickOneClickButton() {
-        await this.buyOneClickButton.click();
-    }
 
     async fillPhone(phone) {
         await this.phoneInput.fill(phone);

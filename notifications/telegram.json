@@ -1,0 +1,16 @@
+{
+  "base": {
+    "project": "DIPLOM EO",
+    "environment": "some env",
+    "comment": "some comment",
+    "reportLink": "",
+    "language": "ru",
+    "allureFolder": "allure-report",
+    "enableChart": true
+  },
+  "telegram": {
+    "token": "8249285966:AAEHg8lUiwFM0Z-IHHFzXiysBD7Lnyn8vb0",
+    "chat": "-5274928305",
+    "replyTo": ""
+  }
+}
