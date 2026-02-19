@@ -3,6 +3,7 @@ class CheckoutUserBuilder {
     this.data = {
       name: 'Test User',
       phone: '+79999999999',
+      email: 'test@mail.ru'
     };
   }
 
@@ -13,6 +14,11 @@ class CheckoutUserBuilder {
 
   withPhone(phone) {
     this.data.phone = phone;
+    return this;
+  }
+
+  withEmail(email) {
+    this.data.email = email;
     return this;
   }
 

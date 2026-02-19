@@ -28,11 +28,9 @@ test.describe('Страница товара', () => {
         });
         test('Оформление заказа', async({app, page}) => {
         const checkoutData = new CheckoutUserBuilder().build();;
-            await page.waitForTimeout(5000);
             await app.product.clickOneClickButton();
-            await page.waitForTimeout(5000);
-            await app.checkoutP.fillName(checkoutData.name);
-            await app.checkoutP.fillPhone(checkoutData.phone);
+            await app.checkoutP.nameInput.waitFor({ state: 'visible' });
+            await app.checkoutP.fillCheckoutForm(checkoutData);
             await expect(app.checkoutP.nameInput).toHaveValue(checkoutData.name);
             await expect(app.checkoutP.phoneInput).toHaveValue(checkoutData.phone);
         })

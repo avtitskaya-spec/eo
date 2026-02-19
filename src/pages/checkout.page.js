@@ -12,21 +12,16 @@ export class CheckoutPage {
         this.continueButton = page.locator('.cart-continue-button');
     }
 
-    // --- бизнес-методы ---
-
-    async fillPhone(phone) {
-        await this.phoneInput.fill(phone);
-    }
-
-    async fillName(name) {
-        await this.nameInput.fill(name);
-    }
-
-    async acceptTerms() {
-        await this.acceptSwitch.first().click();
-    }
-
-    async continue() {
-        await this.continueButton.click();
+    // --- бизнес-метод ---
+    async fillCheckoutForm(checkoutData) {
+        await test.step('Заполнить форму оформления заказа', async () => {
+            await this.nameInput.fill(checkoutData.name);
+            await this.phoneInput.fill(checkoutData.phone);
+            if (checkoutData.email) {
+                await this.emailInput.fill(checkoutData.email);
+            }
+            await this.acceptSwitch.first().click();
+            await this.continueButton.click();
+        });
     }
 }
