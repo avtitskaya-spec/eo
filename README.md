@@ -54,9 +54,10 @@ allure generate allure-results
 ```bash
 allure open allure-report
 
+```
 <img width="1907" height="929" alt="image" src="https://github.com/user-attachments/assets/2db22c78-f6eb-468e-bfb3-2eebd2286e99" />
 
-```
+
  ## Telegram отчёт
  <img width="564" height="547" alt="image" src="https://github.com/user-attachments/assets/8ceeac56-07de-4dd2-a9c0-7f7b737d78be" />
 
