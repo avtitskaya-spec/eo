@@ -26,11 +26,9 @@ test.describe('Страница товара', () => {
             await app.product.clickIconFavorite();
             await expect(app.product.headerIconFavoritesRemoveByAria).toBeVisible();
         });
-        test('Оформление заказа', async({app, page}) => {
+        test('Оформление заказа', async({app}) => {
         const checkoutData = new CheckoutUserBuilder().build();;
-            await page.waitForTimeout(5000);
             await app.product.clickOneClickButton();
-            await page.waitForTimeout(5000);
             await app.checkoutP.fillName(checkoutData.name);
             await app.checkoutP.fillPhone(checkoutData.phone);
             await expect(app.checkoutP.nameInput).toHaveValue(checkoutData.name);
