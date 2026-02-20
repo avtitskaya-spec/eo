@@ -1,37 +1,42 @@
  ## Структура проекта
 <pre>
-├── src/                            
-│   ├── builders/                   
-│   │   ├── index.js
-│   │   └── product.builder.js
-│   │
-│   ├── helpers/                    
-│   │   └── fixtures/               
-│   │       ├── api.fixture.js
-│   │       └── fixture.js
-│   │
-│   ├── pages/                     
-│   │   ├── app.page.js
-│   │   ├── checkout.page.js
-│   │   ├── index.js
-│   │   ├── main.page.js
-│   │   ├── mini-cart.page.js
-│   │   └── product.page.js
-│   │
-│   ├── routes/                   
-│   │   └── page.routes.js
-│   │
-│   └── services/                  
-│       ├── index.js
-│       └── page.service.js
+src/
 │
-├── tests/                     
-│   ├── api/
-│   │   └── catalog-health.spec.js
-│   │
-│   └── ui/
-│       ├── checkout.spec.js
-│       └── mainPage.spec.js
+├── builders/
+│   ├── comparison.builder.js
+│   ├── product.builder.js
+│   └── index.js
+│
+├── helpers/
+│   └── fixtures/
+│       ├── api.fixture.js
+│       └── fixture.js
+│
+├── pages/
+│   ├── app.page.js
+│   ├── checkout.page.js
+│   ├── index.js
+│   ├── main.page.js
+│   ├── mini-cart.page.js
+│   └── product.page.js
+│
+├── routes/
+│   └── page.routes.js
+│
+└── services/
+    ├── comparison.service.js
+    ├── page.service.js
+    └── index.js
+ 
+tests/
+│
+├── api/
+│   ├── catalog-health.spec.js
+│   └── comparison.spec.js
+│
+└── ui/
+    ├── checkout.spec.js
+    └── mainPage.spec.js
 </pre>
 
  ## Установка и запуск
