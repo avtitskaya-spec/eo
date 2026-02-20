@@ -7,6 +7,10 @@ export class ComparisonApi {
     return this.api.post('/comparison/add', body);
   }
 
+  async getComparison(compareId) {
+    return this.api.get(`/comparison/${compareId}`);
+  }
+
   async deleteProduct(body) {
     return this.api.post('/comparison/delete', body);
   }
