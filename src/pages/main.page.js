@@ -15,6 +15,10 @@ export class MainPage {
         this.discountShowMore = page.locator('.index-page__sale-products button:has-text("показать еще")').describe('Кнопка "Показать еще" в "Товарах со скидкой"');
         this.brandBlock = page.locator('.index-page__brands').describe('Блок "Бренды"');
         this.brandItems = page.locator('a[aria-label^="Бренд"]').describe('Ссылка на бренд');
+        this.searchInput = page.getByTestId('search-form-input').describe('Поле поиска');
+        this.searchResults = page.getByTestId('search-results').describe('Блок результатов поиска');
+        this.searchResultsItems = page.getByTestId('search-results').locator('a').describe('Элементы автокомплита');
+        this.searchPageTitle = page.locator('h1.search-page__title').describe('Заголовок страницы поиска');
         this.footer = page.locator('footer').describe('Футер страницы');
     }
 
@@ -43,5 +47,14 @@ export class MainPage {
     }
     async clickDiscountShowMore() {
         await this.discountShowMore.click();
+    }
+
+    async fillSearchQuery(query) {
+        await this.searchInput.click();
+        await this.searchInput.fill(query);
+    }
+
+    async submitSearch() {
+        await this.searchInput.press('Enter');
     }
 }

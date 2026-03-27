@@ -3,6 +3,8 @@ import { CheckApi, ComparisonApi } from '../../services';
 
 
 export const test = base.extend({
+  apiUrl: [undefined, { option: true }],
+
   api: async ({ request, apiUrl }, use) => {
     const api = new CheckApi(request, apiUrl);
     await use(api);

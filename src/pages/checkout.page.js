@@ -12,18 +12,28 @@ export class CheckoutPage {
         this.emailInput = page.locator('[name="email"]');
         this.acceptSwitch = page.locator('[name="accept"]');
         this.continueButton = page.locator('.cart-continue-button');
+        this.checkoutButton = page.locator('.cart-checkout__button');
     }
 
     // --- бизнес-метод ---
-    async fillCheckoutForm(checkoutData) {
-        await test.step('Заполнить форму оформления заказа', async () => {
+    async fillCustomerData(checkoutData) {
+        await test.step('Заполнить данные покупателя', async () => {
             await this.nameInput.fill(checkoutData.name);
             await this.phoneInput.fill(checkoutData.phone);
             if (checkoutData.email) {
                 await this.emailInput.fill(checkoutData.email);
             }
-            await this.acceptSwitch.first().click();
-            await this.continueButton.click();
+            if (!(await this.acceptSwitch.first().isChecked())) {
+                await this.acceptSwitch.first().check({ force: true });
+            }
         });
+    }
+
+    async fillCheckoutForm(checkoutData) {
+        await this.fillCustomerData(checkoutData);
+    }
+
+    async fillOneClickForm(checkoutData) {
+        await this.fillCustomerData(checkoutData);
     }
 }
