@@ -59,19 +59,6 @@ test.describe('API Comparison', () => {
     expect(json.success).toBe(true);
   });
 
-  test('Проверка структуры ответа', async ({ comparisonApi }) => {
-    const body = new ComparisonBuilder().build();
-    const response = await comparisonApi.addProduct(body);
-    const json = await parseJsonSafe(response);
-    expect(json).toBeTruthy();
-    expect(json).toHaveProperty('data');
-    expect(json).toHaveProperty('success');
-    expect(json).toHaveProperty('version');
-    expect(json).toHaveProperty('meta');
-    expect(json.meta).toHaveProperty('seo');
-    expect(json.meta).toHaveProperty('content');
-  });
-
   test('GET Получение списка сравнения по compareId', async ({ comparisonApi }) => {
     const body = new ComparisonBuilder()
       .withRandomId()

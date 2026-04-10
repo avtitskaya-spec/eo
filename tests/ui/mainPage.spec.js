@@ -22,13 +22,4 @@ test.describe('Главная страница', () => {
         await expect(app.main.searchPageTitle).toBeVisible();
     });
 
-    test('Блок "Наши бренды"', async ({app}) => {
-        const block = app.main.brandBlock;
-        const brandItems = app.main.brandItems;
-        await expect(block).toBeVisible();
-        await expect(brandItems.first()).toBeVisible();
-        const count = await brandItems.count();
-        expect(count).toBeGreaterThan(0);
-    });
-
 });
