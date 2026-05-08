@@ -7,6 +7,7 @@ export class CheckoutPage {
     constructor(page) {
         this.page = page;
         this.title = page.getByTestId('cart-title'),
+        this.customerTypeSwitch = page.locator('fieldset.cart-customer-individual input.switch__field[name="isIndividual"][role="switch"][type="checkbox"]');
         this.nameInput = page.locator('[name="name"]');
         this.phoneInput = page.locator('.cart-customer-form__inputs input[name="phone"]');
         this.emailInput = page.locator('[name="email"]');
@@ -16,6 +17,22 @@ export class CheckoutPage {
     }
 
     // --- бизнес-метод ---
+    async setCustomerType(isIndividual) {
+        await test.step(`Выбрать тип покупателя: ${isIndividual ? 'физлицо' : 'юрлицо'}`, async () => {
+            await this.customerTypeSwitch.first().waitFor({ state: 'visible', timeout: 10000 });
+            const currentState = await this.customerTypeSwitch.first().isChecked().catch(() => false);
+            if (currentState !== isIndividual) {
+                await this.customerTypeSwitch.first().click();
+            }
+        });
+    }
+
+    async waitForForm() {
+        await test.step('Дождаться формы оформления', async () => {
+            await this.nameInput.waitFor({ state: 'visible', timeout: 10000 });
+        });
+    }
+
     async fillCustomerData(checkoutData) {
         await test.step('Заполнить данные покупателя', async () => {
             await this.nameInput.fill(checkoutData.name);
@@ -29,11 +46,8 @@ export class CheckoutPage {
         });
     }
 
-    async fillCheckoutForm(checkoutData) {
-        await this.fillCustomerData(checkoutData);
-    }
-
-    async fillOneClickForm(checkoutData) {
-        await this.fillCustomerData(checkoutData);
+    async getPhoneDigits() {
+        const phone = await this.phoneInput.inputValue();
+        return phone.replace(/\D/g, '');
     }
 }

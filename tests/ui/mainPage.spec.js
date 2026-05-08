@@ -1,5 +1,4 @@
-import { expect } from '@playwright/test';
-import { test } from '../../src/helpers/fixtures/fixture';
+import { test, expect } from '../../src/helpers/fixtures/fixture';
 
 test.describe('Главная страница', () => {
     test.beforeEach(async ({ page }) => {
@@ -14,12 +13,16 @@ test.describe('Главная страница', () => {
 
     test('Поиск товара через Enter открывает страницу результатов', async ({ page, app }) => {
         const query = 'кресло';
-        await app.main.fillSearchQuery(query);
-        await expect(app.main.searchResults).toBeVisible();
-        await expect(app.main.searchResultsItems.first()).toBeVisible();
-        await app.main.submitSearch();
+        await app.main.search(query);
         await expect(page).toHaveURL(/search\/\?s=/);
         await expect(app.main.searchPageTitle).toBeVisible();
+    });
+
+    test('Поиск по первой подсказке открывает страницу с результатами', async ({ page, app }) => {
+        const startUrl = page.url();
+        await app.main.openFirstSuggestion('стол');
+        await expect(page).toHaveURL(/search|catalog/);
+        await expect(page).not.toHaveURL(startUrl);
     });
 
 });

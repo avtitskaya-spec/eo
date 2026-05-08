@@ -1,3 +1,5 @@
+import { test } from '@playwright/test';
+
 export class MiniCartPage {
     constructor(page) {
         this.page = page;
@@ -23,5 +25,17 @@ export class MiniCartPage {
     async getFirstProductName() {
         const firstProductName = await this.productName.first().innerText();
         return firstProductName.replace(/\s+/g, ' ').trim();
+    }
+
+    async goToCheckout() {
+        await test.step('Перейти к оформлению заказа из мини-корзины', async () => {
+            await this.checkoutButton.first().click();
+        });
+    }
+
+    async goToOneClick() {
+        await test.step('Перейти в режим "Купить в 1 клик" из мини-корзины', async () => {
+            await this.oneClickButton.first().click();
+        });
     }
 }

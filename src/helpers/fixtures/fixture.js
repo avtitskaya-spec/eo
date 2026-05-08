@@ -7,3 +7,5 @@ export const test = base.extend({
         await use(app);
     },
 });
+
+export const expect = test.expect;

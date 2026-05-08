@@ -9,6 +9,21 @@ export class CheckoutUserBuilder {
     this.data = { ...DEFAULT_CHECKOUT_USER };
   }
 
+  withName(name) {
+    this.data.name = name;
+    return this;
+  }
+
+  withPhone(phone) {
+    this.data.phone = phone;
+    return this;
+  }
+
+  withEmail(email) {
+    this.data.email = email;
+    return this;
+  }
+
   build() {
     return { ...this.data };
   }

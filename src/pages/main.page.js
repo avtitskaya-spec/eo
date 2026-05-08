@@ -1,3 +1,5 @@
+import { test } from '@playwright/test';
+
 export class MainPage {
 
     constructor(page) {
@@ -49,12 +51,23 @@ export class MainPage {
         await this.discountShowMore.click();
     }
 
-    async fillSearchQuery(query) {
-        await this.searchInput.click();
-        await this.searchInput.fill(query);
+    async search(query) {
+        await test.step(`Поиск товара: "${query}"`, async () => {
+            await this.searchInput.click();
+            await this.searchInput.fill(query);
+            await this.searchResults.waitFor({ state: 'visible', timeout: 7000 });
+            await this.searchResultsItems.first().waitFor({ state: 'visible', timeout: 7000 });
+            await this.searchInput.press('Enter');
+        });
     }
 
-    async submitSearch() {
-        await this.searchInput.press('Enter');
+    async openFirstSuggestion(query) {
+        await test.step(`Открыть первую подсказку поиска: "${query}"`, async () => {
+            await this.searchInput.click();
+            await this.searchInput.fill(query);
+            await this.searchResults.waitFor({ state: 'visible', timeout: 7000 });
+            await this.searchResultsItems.first().waitFor({ state: 'visible', timeout: 7000 });
+            await this.searchResultsItems.first().click();
+        });
     }
 }

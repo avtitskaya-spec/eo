@@ -1,38 +1,28 @@
 import { test, expect } from '../../src/helpers/fixtures/api.fixture';
 import { ComparisonBuilder } from '../../src/builders';
 
-const parseJsonSafe = async (response) => {
-  try {
-    return await response.json();
-  } catch {
-    return null;
-  }
-};
-
 test.describe('API Comparison', () => {
 
   test('POST Успешное добавление товара', async ({ comparisonApi }) => {
     const body = new ComparisonBuilder()
       .withRandomId()
       .build();
-    const response = await comparisonApi.addProduct(body);
-    expect(response.status()).toBe(200);
-    const json = await parseJsonSafe(response);
-    expect(json).toBeTruthy();
-    expect(json.success).toBe(true);
-    expect(json.data.compareId).toBeTruthy();
-    expect(typeof json.data.compareId).toBe('string');
+    const result = await comparisonApi.addProduct(body);
+    expect(result.status).toBe(200);
+    expect(result.body).toBeTruthy();
+    expect(result.body.success).toBe(true);
+    expect(result.body.data.compareId).toBeTruthy();
+    expect(typeof result.body.data.compareId).toBe('string');
   });
 
   test('POST Невалидный id', async ({ comparisonApi }) => {
     const body = new ComparisonBuilder()
       .withId('invalid_id')
       .build();
-    const response = await comparisonApi.addProduct(body);
-    expect(response.status()).not.toBe(500);
-    const json = await parseJsonSafe(response);
-    if (json) {
-      expect(json.success).toBe(false);
+    const result = await comparisonApi.addProduct(body);
+    expect(result.status).not.toBe(500);
+    if (result.body) {
+      expect(result.body.success).toBe(false);
     }
   });
 
@@ -40,66 +30,60 @@ test.describe('API Comparison', () => {
     const body = new ComparisonBuilder()
       .withoutId()
       .build();
-    const response = await comparisonApi.addProduct(body);
-    expect(response.status()).not.toBe(200);
-    const json = await parseJsonSafe(response);
-    if (json) {
-      expect(json.success).toBe(false);
+    const result = await comparisonApi.addProduct(body);
+    expect(result.status).not.toBe(200);
+    if (result.body) {
+      expect(result.body.success).toBe(false);
     }
   });
 
   test('Повторное добавление товара', async ({ comparisonApi }) => {
     const body = new ComparisonBuilder().build();
-    const firstResponse = await comparisonApi.addProduct(body);
-    expect(firstResponse.status()).toBe(200);
-    const secondResponse = await comparisonApi.addProduct(body);
-    expect(secondResponse.status()).toBe(200);
-    const json = await parseJsonSafe(secondResponse);
-    expect(json).toBeTruthy();
-    expect(json.success).toBe(true);
+    const firstResult = await comparisonApi.addProduct(body);
+    expect(firstResult.status).toBe(200);
+    const secondResult = await comparisonApi.addProduct(body);
+    expect(secondResult.status).toBe(200);
+    expect(secondResult.body).toBeTruthy();
+    expect(secondResult.body.success).toBe(true);
   });
 
   test('GET Получение списка сравнения по compareId', async ({ comparisonApi }) => {
     const body = new ComparisonBuilder()
       .withRandomId()
       .build();
-    const addResponse = await comparisonApi.addProduct(body);
-    expect(addResponse.status()).toBe(200);
-    const addJson = await parseJsonSafe(addResponse);
-    expect(addJson).toBeTruthy();
-    const compareId = addJson.data.compareId;
+    const addResult = await comparisonApi.addProduct(body);
+    expect(addResult.status).toBe(200);
+    expect(addResult.body).toBeTruthy();
+    const compareId = addResult.body.data.compareId;
     expect(compareId).toBeTruthy();
 
-    const getResponse = await comparisonApi.getComparison(compareId);
-    expect(getResponse.status()).toBe(200);
-    const getJson = await parseJsonSafe(getResponse);
-    expect(getJson).toBeTruthy();
-    expect(getJson).toHaveProperty('data');
-    expect(getJson).toHaveProperty('success');
+    const getResult = await comparisonApi.getComparison(compareId);
+    expect(getResult.status).toBe(200);
+    expect(getResult.body).toBeTruthy();
+    expect(getResult.body).toHaveProperty('data');
+    expect(getResult.body).toHaveProperty('success');
   });
 
   test('POST Удаление товара из сравнения', async ({ comparisonApi }) => {
     const body = new ComparisonBuilder().build();
-    const addResponse = await comparisonApi.addProduct(body);
-    expect(addResponse.status()).toBe(200);
-    const addJson = await parseJsonSafe(addResponse);
-    expect(addJson).toBeTruthy();
+    const addResult = await comparisonApi.addProduct(body);
+    expect(addResult.status).toBe(200);
+    expect(addResult.body).toBeTruthy();
 
     const deleteBody = {
       id: body.id,
-      compareId: addJson.data.compareId,
+      compareId: addResult.body.data.compareId,
     };
-    const deleteResponse = await comparisonApi.deleteProduct(deleteBody);
-    expect(deleteResponse.status()).not.toBe(500);
-    const deleteJson = await parseJsonSafe(deleteResponse);
-    if (deleteJson) {
-      expect(deleteJson).toHaveProperty('success');
+    const deleteResult = await comparisonApi.deleteProduct(deleteBody);
+    expect(deleteResult.status).not.toBe(500);
+    if (deleteResult.body) {
+      expect(deleteResult.body).toHaveProperty('success');
     }
   });
 
   test('GET Невалидный compareId не приводит к 500', async ({ comparisonApi }) => {
-    const response = await comparisonApi.getComparison('invalid_compare_id');
-    expect(response.status()).not.toBe(500);
+    const result = await comparisonApi.getComparison('invalid_compare_id');
+    expect(result.status).not.toBe(500);
   });
 
 });
